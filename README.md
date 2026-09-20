@@ -1,4 +1,4 @@
-# IntegraCAR-LULC-10K: Segmentation Training
+# IntegraCAR-LULC-10K: A High-Resolution Optical Satellite Dataset for LULC Segmentation in the Brazilian Rural Environmental Registry
 
 This repository contains code to prepare masks and train land use and land cover (LULC) semantic segmentation models for the paper **“IntegraCAR-LULC-10K: A High-Resolution Optical Satellite Dataset for LULC Segmentation in the Brazilian Rural Environmental Registry”** (SIBGRAPI 2026). The public [IntegraCAR-LULC-500](https://huggingface.co/datasets/laicsiifes/IntegraCAR-LULC-500) dataset is a 500-image benchmark subset of the larger 10,000-tile collection described in the paper.
 
