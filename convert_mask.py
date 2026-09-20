@@ -10,6 +10,7 @@ from tqdm import tqdm
 
 
 # Original color IDs used by the 25-class mask conversion.
+# Class names below are kept in Portuguese to match the source taxonomy.
 RGB_TO_CLASS_25: dict[tuple[int, int, int], int] = {
     (150, 150, 150): 0,   # Afloramento Rochoso
     (251, 154, 153): 1,   # Área Edificada
@@ -39,7 +40,8 @@ RGB_TO_CLASS_25: dict[tuple[int, int, int], int] = {
 }
 
 # Grouping from the project's five-class article reproduction.
-# IDs: 0 infraestrutura, 1 vegetação, 2 agropastoril, 3 macega, 4 água.
+# Class IDs: 0 Infraestrutura, 1 Vegetação, 2 Agropastoril,
+# 3 Macega, 4 Água.
 CLASS_5_BY_CLASS_25: tuple[int, ...] = (
     0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 0,
     3, 1, 4, 1, 1, 0, 2, 1, 1, 1, 1, 0,
@@ -159,10 +161,22 @@ def convert_directory(
 def main(argv: Sequence[str] | None = None) -> None:
     """Parse CLI options and convert the selected masks."""
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input-dir", type=Path, required=True)
-    parser.add_argument("--output-dir", type=Path, required=True)
-    parser.add_argument("--classes", type=int, choices=(5, 25), default=5)
-    parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument(
+        "--input-dir", type=Path, required=True,
+        help="Directory containing the original RGB GeoTIFF masks."
+    )
+    parser.add_argument(
+        "--output-dir", type=Path, required=True,
+        help="Directory for the converted single-band GeoTIFF masks."
+    )
+    parser.add_argument(
+        "--classes", type=int, choices=(5, 25), default=5,
+        help="Number of output classes (default: 5)."
+    )
+    parser.add_argument(
+        "--overwrite", action="store_true",
+        help="Replace converted masks that already exist."
+    )
     args = parser.parse_args(argv)
 
     try:
